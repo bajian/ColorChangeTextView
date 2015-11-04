@@ -10,6 +10,9 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+/**
+ * 字体颜色变换demo，可用于歌词等场景，从上到下还没写，有需要的自己完成
+ */
 public class MainActivity extends AppCompatActivity {
 
     private ColorChangeTextView mChangeTv;
@@ -29,15 +32,16 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-        
+
         mChangeTv=(ColorChangeTextView)findViewById(R.id.changeTv);
 
         fromLeft();
     }
 
     private void fromLeft() {
+//        mChangeTv.setDirection(ColorChangeTextView.FROM_RIGHT);
         mChangeTv.setDirection(ColorChangeTextView.FROM_LEFT);
-
+//你要设置动画的对象的属性必须有一个set该值的方法。因为ObjectAnimator在动画的过程中自动更新属性值，这是通过调用该属性的set方法来实现的。例如，如果属性的名字是foo，你需要有一个setFoo()的方法
         ObjectAnimator.ofFloat(mChangeTv,"progress",0,1).setDuration(5000).start();
     }
 

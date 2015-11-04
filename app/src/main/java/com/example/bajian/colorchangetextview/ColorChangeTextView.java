@@ -23,7 +23,7 @@ public class ColorChangeTextView extends View {
     private Paint mPaint;
 
     private int mDirection=FROM_LEFT;
-    private float mProgress=0;
+    private float progress=0;
     private int mTextChangeColor=0x00ff00;
     private int mTextOriginColor=0xff0000;
     private int mTextSize=sp2px(12);
@@ -54,7 +54,7 @@ public class ColorChangeTextView extends View {
         mTextSize=a.getDimensionPixelSize(R.styleable.ColorChangeTextView_text_size, mTextSize);
         mTextOriginColor=a.getColor(R.styleable.ColorChangeTextView_text_origin_color, mTextOriginColor);
         mTextChangeColor=a.getColor(R.styleable.ColorChangeTextView_text_change_color, mTextChangeColor);
-        mProgress=a.getFloat(R.styleable.ColorChangeTextView_progress, 0);
+        progress=a.getFloat(R.styleable.ColorChangeTextView_progress, 0);
         mDirection=a.getInt(R.styleable.ColorChangeTextView_change_direction, FROM_LEFT);
         a.recycle();
 
@@ -70,8 +70,8 @@ public class ColorChangeTextView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        int r = (int) (mProgress* mTextWidth +mTextStartX );
-        Log.d(TAG,"R="+r);
+        int r = (int) (progress* mTextWidth +mTextStartX );
+        Log.d(TAG, "R=" + r);
         if(mDirection == FROM_LEFT)
         {
             drawChangeLeft(canvas, r);//无先后顺序
@@ -86,21 +86,21 @@ public class ColorChangeTextView extends View {
 
     private void drawChangeRight(Canvas canvas, int r)
     {
-        drawText(canvas, mTextChangeColor, (int) (mTextStartX + (1 - mProgress) * mTextWidth), (int) (mTextStartX + mTextWidth));
+        drawText(canvas, mTextChangeColor, (int) (mTextStartX + (1 - progress) * mTextWidth), (int) (mTextStartX + mTextWidth));
     }
     private void drawOriginRight(Canvas canvas, int r)
     {
-        drawText(canvas, mTextOriginColor, mTextStartX, (int) (mTextStartX +(1-mProgress)*mTextWidth) );
+        drawText(canvas, mTextOriginColor, mTextStartX, (int) (mTextStartX +(1-progress)*mTextWidth) );
     }
 
     private void drawChangeLeft(Canvas canvas, int r)
     {
-        drawText(canvas, mTextChangeColor, mTextStartX, (int) (mTextStartX + mProgress * mTextWidth) );
+        drawText(canvas, mTextChangeColor, mTextStartX, (int) (mTextStartX + progress * mTextWidth));
     }
 
     private void drawOriginLeft(Canvas canvas, int r)
     {
-        drawText(canvas, mTextOriginColor, (int) (mTextStartX + mProgress * mTextWidth), (int) (mTextStartX +mTextWidth));
+        drawText(canvas, mTextOriginColor, (int) (mTextStartX + progress * mTextWidth), (int) (mTextStartX + mTextWidth));
     }
 
     private void drawText(Canvas canvas , int color , int startX , int endX)
@@ -195,6 +195,15 @@ public class ColorChangeTextView extends View {
                 dpVal, getResources().getDisplayMetrics());
     }
 
+    public float getProgress() {
+        return progress;
+    }
+
+    public void setProgress(float progress) {
+        Log.d(TAG,"progress"+progress);
+        this.progress = progress;
+        invalidate();
+    }
 
     public float getTextWidth() {
         return mTextWidth;
@@ -202,10 +211,6 @@ public class ColorChangeTextView extends View {
 
     public Paint getPaint() {
         return mPaint;
-    }
-
-    public float getProgress() {
-        return mProgress;
     }
 
     public int getTextChangeColor() {
@@ -238,37 +243,37 @@ public class ColorChangeTextView extends View {
 
     public void setTextStartX(int mTextStartX) {
         this.mTextStartX = mTextStartX;
+        invalidate();
     }
 
     public void setTextWidth(int mTextWidth) {
         this.mTextWidth = mTextWidth;
-    }
-
-    public void setPaint(Paint mPaint) {
-        this.mPaint = mPaint;
-    }
-
-    public void setProgress(float progress) {
-        this.mProgress = progress;
+        invalidate();
     }
 
     public void setTextChangeColor(int mTextChangeColor) {
         this.mTextChangeColor = mTextChangeColor;
+        invalidate();
     }
 
     public void setTextOriginColor(int mTextOriginColor) {
         this.mTextOriginColor = mTextOriginColor;
+        invalidate();
     }
 
     public void setTextSize(int mTextSize) {
         this.mTextSize = mTextSize;
+        requestLayout();
+        invalidate();
     }
 
     public void setText(String mText) {
         this.mText = mText;
+        invalidate();
     }
 
     public void setTextBound(Rect mTextBound) {
         this.mTextBound = mTextBound;
+        invalidate();
     }
 }

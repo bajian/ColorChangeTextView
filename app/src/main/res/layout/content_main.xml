@@ -22,8 +22,9 @@
     <com.example.bajian.colorchangetextview.ColorChangeTextView
         android:background="#00ff00"
         android:id="@+id/changeTv"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
         app:text="bajian_github"
         app:text_size="14sp"
         app:text_origin_color="#424242"
