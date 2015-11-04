@@ -34,8 +34,9 @@ public class ColorChangeTextView extends View {
     public static final int FROM_LEFT=0;
     public static final int FROM_RIGHT=1;
     public static final int FROM_TOP=2;
-
     public static final int FROM_BOTTOM=3;
+
+    public boolean auto_reset=true;//progress到1自动还原颜色
 
     private int mRealWidth;//除去padding的text宽度
     private int mTextStartX;//开始变色的位置
@@ -82,7 +83,18 @@ public class ColorChangeTextView extends View {
             drawChangeRight(canvas, r);
         }
 
+        if (auto_reset)
+            if (progress==1)
+                resetColor();
+
+
     }
+
+    private void resetColor() {
+        progress=0;
+        invalidate();
+    }
+
 
     private void drawChangeRight(Canvas canvas, int r)
     {
@@ -90,7 +102,7 @@ public class ColorChangeTextView extends View {
     }
     private void drawOriginRight(Canvas canvas, int r)
     {
-        drawText(canvas, mTextOriginColor, mTextStartX, (int) (mTextStartX +(1-progress)*mTextWidth) );
+        drawText(canvas, mTextOriginColor, mTextStartX, (int) (mTextStartX + (1 - progress) * mTextWidth));
     }
 
     private void drawChangeLeft(Canvas canvas, int r)
@@ -272,8 +284,20 @@ public class ColorChangeTextView extends View {
         invalidate();
     }
 
+
     public void setTextBound(Rect mTextBound) {
         this.mTextBound = mTextBound;
         invalidate();
     }
+
+
+    public boolean isAuto_reset() {
+        return auto_reset;
+    }
+
+    public void setAuto_reset(boolean mAuto_reset) {
+        auto_reset = mAuto_reset;
+        invalidate();
+    }
+
 }
